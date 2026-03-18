@@ -1046,13 +1046,126 @@ body { overflow-x: hidden; }
 
 </div>
 
+  <!-- SLIDE 11: SUBJECTIVE DATA -->
+  <div class="slide" id="slide-11">
+    <div class="content-wide">
+      <div class="slide-label">Вечерние чекины · Telegram бот · 18 записей · фев–март 2026</div>
+      <h2 class="section-title">Настроение и энергия</h2>
+      <div class="grid-2" style="align-items:start;">
+
+        <!-- Chart -->
+        <div class="card">
+          <div class="card-label" style="margin-bottom:16px;">Динамика · 8 февраля — 17 марта</div>
+          <svg width="100%" height="130" viewBox="0 0 520 130" preserveAspectRatio="xMidYMid meet" style="overflow:visible;">
+            <!-- Period backgrounds -->
+            <rect x="116" y="0" width="147" height="110" fill="#fde8e6" opacity="0.6" rx="2"/>
+            <rect x="289" y="0" width="116" height="110" fill="#d8f3dc" opacity="0.6" rx="2"/>
+            <!-- Grid lines -->
+            <line x1="30" y1="10" x2="520" y2="10" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="35" x2="520" y2="35" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="60" x2="520" y2="60" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="85" x2="520" y2="85" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="110" x2="520" y2="110" stroke="#e0e0e0" stroke-width="0.5"/>
+            <!-- Y labels -->
+            <text x="24" y="13" font-size="8" fill="#aaa" text-anchor="end" font-family="Inter,sans-serif">10</text>
+            <text x="24" y="63" font-size="8" fill="#aaa" text-anchor="end" font-family="Inter,sans-serif">5</text>
+            <text x="24" y="113" font-size="8" fill="#aaa" text-anchor="end" font-family="Inter,sans-serif">0</text>
+            <!-- Filled area under mood -->
+            <polygon points="30,30 58.8,20 87.6,40 116.4,90 145.2,90 174,50 202.8,90 231.6,80 260.4,80 289.2,40 318,60 346.8,40 375.6,40 404.4,60 433.2,40 462,40 490.8,40 519.6,80 519.6,110 30,110" fill="#2c3e50" opacity="0.05"/>
+            <!-- Energy line -->
+            <polyline points="30,30 58.8,20 87.6,60 116.4,80 145.2,80 174,60 202.8,80 231.6,80 260.4,80 289.2,40 318,60 346.8,40 375.6,40 404.4,60 433.2,40 462,40 490.8,40 519.6,80" fill="none" stroke="#2d6a4f" stroke-width="2" stroke-linejoin="round" opacity="0.65"/>
+            <!-- Mood line -->
+            <polyline points="30,30 58.8,20 87.6,40 116.4,90 145.2,90 174,50 202.8,90 231.6,80 260.4,80 289.2,40 318,60 346.8,40 375.6,40 404.4,60 433.2,40 462,40 490.8,40 519.6,80" fill="none" stroke="#2c3e50" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- Peak dots -->
+            <circle cx="30" cy="30" r="3.5" fill="#2c3e50"/>
+            <circle cx="58.8" cy="20" r="4" fill="#2d6a4f"/>
+            <!-- Today dot red -->
+            <circle cx="519.6" cy="80" r="4.5" fill="#c0392b"/>
+            <!-- X axis labels -->
+            <text x="30" y="126" font-size="8" fill="#aaa" text-anchor="middle" font-family="Inter,sans-serif">8фев</text>
+            <text x="87.6" y="126" font-size="8" fill="#aaa" text-anchor="middle" font-family="Inter,sans-serif">15фев</text>
+            <text x="130" y="126" font-size="8" fill="#c0392b" text-anchor="middle" font-family="Inter,sans-serif">болезнь</text>
+            <text x="346" y="126" font-size="8" fill="#2d6a4f" text-anchor="middle" font-family="Inter,sans-serif">лыжи</text>
+            <text x="519.6" y="126" font-size="8" fill="#c0392b" text-anchor="middle" font-family="Inter,sans-serif">17мар</text>
+          </svg>
+          <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:18px;height:2.5px;background:var(--accent);border-radius:2px;"></div><span style="font-size:10px;color:var(--muted);">настроение</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:18px;height:2px;background:var(--green);border-radius:2px;opacity:0.7;"></div><span style="font-size:10px;color:var(--muted);">энергия</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;background:var(--red-light);border-radius:2px;"></div><span style="font-size:10px;color:var(--muted);">болезнь</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;background:var(--green-light);border-radius:2px;"></div><span style="font-size:10px;color:var(--muted);">лыжи</span></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <!-- Stats -->
+          <div class="card">
+            <div style="display:flex;gap:24px;flex-wrap:wrap;">
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--accent);line-height:1;">5.2</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">ср. настроение</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--green);line-height:1;">9</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">пик · 8–9 фев</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--red);line-height:1;">3</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">сегодня</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--muted);line-height:1;">18</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">дней записей</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key periods -->
+          <div class="card">
+            <div class="card-label" style="margin-bottom:12px;">Ключевые периоды</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="padding:9px 12px;border-radius:6px;background:var(--green-light);border-left:3px solid var(--green);">
+                <div style="font-size:11px;font-weight:600;color:var(--green);">8–9 февраля — пик</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">Настроение 9/10 · энергия 9/10 · мотивация 8</div>
+              </div>
+              <div style="padding:9px 12px;border-radius:6px;background:var(--red-light);border-left:3px solid var(--red);">
+                <div style="font-size:11px;font-weight:600;color:var(--red);">24 фев – 1 марта — болезнь</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">Настроение 2–3 · стресс 7–8 · «болезнь и война»</div>
+              </div>
+              <div style="padding:9px 12px;border-radius:6px;background:var(--green-light);border-left:3px solid var(--green);">
+                <div style="font-size:11px;font-weight:600;color:var(--green);">6–10 марта — лыжи Pontresina</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">Стабильные 7/10 каждый день · стресс 3</div>
+              </div>
+              <div style="padding:9px 12px;border-radius:6px;background:var(--red-light);border-left:3px solid var(--red);">
+                <div style="font-size:11px;font-weight:600;color:var(--red);">17 марта — новый спад</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">«Плохо себя чувствую» · 3/10</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight -->
+          <div class="card" style="background:#f7f9fc;">
+            <div class="card-label" style="margin-bottom:10px;">Паттерн</div>
+            <div style="font-size:12px;color:var(--secondary);line-height:1.7;">
+              Настроение и энергия движутся синхронно.<br>
+              Движение на природе → +4 пункта к базе.<br>
+              Болезнь — главный дестабилизатор.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <!-- Navigation -->
 <div class="nav-dots" id="navDots"></div>
-<div class="slide-counter" id="slideCounter">1 / 8</div>
+<div class="slide-counter" id="slideCounter">1 / 11</div>
 <div class="progress-bar" id="progressBar"></div>
 
 <script>
-const TOTAL = 10;
+const TOTAL = 11;
 let cur = 1, busy = false;
 
 // Build dots
