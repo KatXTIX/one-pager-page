@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Здоровье — март 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #fafaf8;
+  --text: #1a1a1a;
+  --secondary: #4a4a4a;
+  --muted: #6b6b6b;
+  --accent: #2c3e50;
+  --border: #e0e0e0;
+  --green: #2d6a4f;
+  --yellow: #b5880a;
+  --red: #c0392b;
+  --green-light: #d8f3dc;
+  --yellow-light: #fef9c3;
+  --red-light: #fde8e6;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.presentation { width: 100vw; height: 100vh; position: relative; }
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 52px 80px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  pointer-events: none;
+}
+.slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+.slide.exit-up { opacity: 0; transform: translateY(-24px); }
+
+.nav-dots {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+}
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+.nav-dot.active { background: var(--accent); transform: scale(1.6); }
+
+.slide-counter {
+  position: fixed;
+  bottom: 22px;
+  right: 32px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+}
+
+.progress-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.55s ease;
+  z-index: 100;
+}
+
+/* Typography */
+.slide-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+h2.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px, 4vw, 50px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 32px;
+}
+.divider { width: 36px; height: 1px; background: var(--accent); margin: 18px 0; }
+
+/* Cards */
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+.card-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.card-number {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--accent);
+  line-height: 1;
+}
+.card-sublabel { font-size: 11px; color: var(--secondary); margin-top: 4px; }
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 10px;
+}
+.badge-green { color: var(--green); background: var(--green-light); }
+.badge-yellow { color: var(--yellow); background: var(--yellow-light); }
+.badge-red { color: var(--red); background: var(--red-light); }
+
+/* Layouts */
+.content-wide { width: 100%; max-width: 980px; }
+.content-narrow { width: 100%; max-width: 620px; text-align: center; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; max-width: 980px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; width: 100%; max-width: 980px; }
+
+/* Biomarker cell */
+.bm-cell {
+  padding: 18px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: white;
+}
+.bm-val {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1;
+}
+.bm-name {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+/* Flag card */
+.flag-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px;
+  border-radius: 8px;
+  border-left: 4px solid var(--red);
+  background: #fff4f3;
+  margin-bottom: 14px;
+}
+.flag-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.flag-metrics { display: flex; gap: 28px; margin-top: 4px; }
+.flag-metric-val {
+  font-family: var(--font-heading);
+  font-size: 34px;
+  color: var(--red);
+  line-height: 1;
+}
+.flag-metric-val.neutral { color: var(--accent); }
+.flag-metric-lbl { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.flag-metric-ref { font-size: 10px; color: var(--red); }
+
+/* T-score bar */
+.t-bar-wrap { margin: 10px 0; }
+.t-bar-bg {
+  width: 100%;
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+.t-bar-fill {
+  position: absolute;
+  right: 50%;
+  top: 0;
+  height: 100%;
+  background: var(--yellow);
+  border-radius: 5px 0 0 5px;
+  transition: width 1.2s ease;
+}
+.t-bar-zero {
+  position: absolute;
+  left: 50%;
+  top: -3px;
+  width: 1px;
+  height: 16px;
+  background: #aaa;
+}
+.t-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* Activity row */
+.act-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 18px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+.act-type {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  width: 90px;
+  flex-shrink: 0;
+}
+.act-stats { display: flex; gap: 20px; flex: 1; align-items: center; }
+.act-stat { text-align: center; }
+.act-val {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--accent);
+}
+.act-lbl { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+/* Timeline / next steps */
+.next-item {
+  display: flex;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.next-item:last-child { border-bottom: none; }
+.next-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.dot-red { background: var(--red); }
+.dot-yellow { background: var(--yellow); }
+.dot-gray { background: #bbb; }
+.next-h { font-size: 12px; font-weight: 500; color: var(--text); }
+.next-p { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* Bar chart */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 88px;
+}
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+}
+.bar-col-inner {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.bar-fill {
+  width: 100%;
+  border-radius: 2px 2px 0 0;
+  transition: height 0.8s ease;
+}
+.bar-date { font-size: 9px; color: var(--muted); }
+
+/* Sleep stats row */
+.sleep-stats { display: flex; gap: 20px; margin-top: 14px; }
+.sleep-stat-val { font-family: var(--font-heading); font-size: 30px; line-height: 1; }
+.sleep-stat-lbl { font-size: 9px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+/* ── Mobile responsive ── */
+body { overflow-x: hidden; }
+
+@media (max-width: 768px) {
+  .slide { padding: clamp(20px, 5vw, 52px) clamp(16px, 5vw, 80px); justify-content: flex-start; overflow-y: auto; overflow-x: hidden; padding-top: 48px; padding-bottom: 48px; }
+  .content-wide, .content-narrow { max-width: 100%; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  h2.section-title { font-size: clamp(22px, 6vw, 36px); margin-bottom: 20px; }
+  .card { padding: 16px; }
+  .card-number { font-size: clamp(28px, 7vw, 40px); }
+  .bm-val { font-size: clamp(22px, 6vw, 30px); }
+  .flag-metrics { flex-wrap: wrap; gap: 16px; }
+  .flag-metric-val { font-size: clamp(24px, 6vw, 34px); }
+  .act-row { flex-wrap: wrap; gap: 8px; }
+  .act-type { width: 100%; }
+  .act-stats { flex-wrap: wrap; gap: 12px; }
+  .sleep-stats { gap: 12px; }
+  .sleep-stat-val { font-size: clamp(20px, 5vw, 30px); }
+  .bar-chart { height: 64px; }
+  .nav-dots { display: none; }
+  .slide-counter { bottom: 10px; right: 16px; }
+}
+
+@media (max-width: 480px) {
+  .slide { padding: 44px 14px 44px; }
+  .flag-card { padding: 14px 16px; }
+  /* Cover slide: stack bio age vertically */
+  #slide-1 .age-row { flex-direction: column; align-items: center; gap: 4px; }
+}
+</style>
+</head>
+<body>
+<div class="presentation" id="presentation">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide active" id="slide-1">
+    <div class="content-narrow">
+      <div style="font-family: var(--font-heading); font-size: clamp(18px,3vw,26px); font-weight: 400; color: var(--accent); letter-spacing: 0.5px; margin-bottom: 8px;">Катерина Кириллова</div>
+      <div style="font-family: var(--font-heading); font-size: clamp(60px,10vw,108px); font-weight: 300; line-height: 1.0; letter-spacing: -1px;">Здоровье</div>
+      <div class="divider"></div>
+      <div class="age-row" style="display: flex; align-items: flex-end; gap: 20px; justify-content: center; margin-top: 8px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <div style="font-family: var(--font-heading); font-size: clamp(52px,12vw,80px); font-weight: 300; color: var(--green); line-height: 1;" class="counter" data-target="43.4" data-dec="1">0</div>
+          <div style="font-size: 12px; color: var(--muted); letter-spacing: 1px; margin-top: 4px;">биологический возраст</div>
+        </div>
+        <div style="font-family: var(--font-heading); font-size: clamp(24px,6vw,36px); color: var(--green); padding-bottom: 16px;">−3.5</div>
+        <div style="text-align: center;">
+          <div style="font-family: var(--font-heading); font-size: clamp(36px,9vw,52px); font-weight: 300; color: var(--muted); line-height: 1; text-decoration: line-through;">46.9</div>
+          <div style="font-size: 12px; color: var(--muted); letter-spacing: 1px; margin-top: 4px;">по паспорту</div>
+        </div>
+      </div>
+      <div style="margin-top: 28px; font-size: 13px; color: var(--muted); letter-spacing: 0.5px;">Стрела времени идёт в другую сторону</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: BIO AGE DETAIL -->
+  <div class="slide" id="slide-2">
+    <div class="content-wide">
+      <div class="slide-label">PhenoAge · VO2max · Защитные факторы</div>
+      <h2 class="section-title">Что говорят маркеры</h2>
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; width: 100%;">
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="card-label">PhenoAge (Levine 2018 formula)</div>
+            <div style="display: flex; align-items: flex-end; gap: 16px; margin-top: 10px;">
+              <div style="font-family: var(--font-heading); font-size: clamp(48px,10vw,88px); font-weight: 300; color: var(--green); line-height: 1;">43.4</div>
+              <div style="padding-bottom: 10px;">
+                <div style="font-family: var(--font-heading); font-size: clamp(28px,6vw,44px); font-weight: 300; color: #ccc; text-decoration: line-through; line-height: 1;">46.9</div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 4px;">хронологический</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: var(--secondary); line-height: 1.5; margin-top: 10px;">Низкий CRP + альбумин 4.5 + нормальный RDW — ключевые защитники</div>
+            <span class="badge badge-green">−3.5 года от паспорта</span>
+          </div>
+        </div>
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="card-label">VO2max (Garmin)</div>
+          <div>
+            <div style="font-family: var(--font-heading); font-size: clamp(40px,9vw,72px); font-weight: 300; color: var(--green); line-height: 1; margin-top: 8px;">45</div>
+            <div style="font-size: 11px; color: var(--muted); margin-top: 6px;">мл/кг/мин</div>
+          </div>
+          <span class="badge badge-green">топ 10% для возраста</span>
+        </div>
+        <div class="card" style="display: flex; flex-direction: column; gap: 16px; justify-content: space-between;">
+          <div>
+            <div class="card-label">CRP (воспаление)</div>
+            <div style="font-family: var(--font-heading); font-size: 40px; color: var(--green); line-height: 1; margin-top: 6px;">&lt;0.5</div>
+            <div style="font-size: 10px; color: var(--muted); margin-top: 4px;">мг/дл</div>
+            <span class="badge badge-green">очень низкое</span>
+          </div>
+          <div>
+            <div class="card-label">Vitamin D</div>
+            <div style="font-family: var(--font-heading); font-size: 40px; color: var(--green); line-height: 1; margin-top: 6px;">53</div>
+            <div style="font-size: 10px; color: var(--muted); margin-top: 4px;">нг/мл</div>
+            <span class="badge badge-green">норма</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: SLEEP & RECOVERY -->
+  <div class="slide" id="slide-3">
+    <div class="content-wide">
+      <div class="slide-label">5–17 марта 2026 · Oura + Garmin</div>
+      <h2 class="section-title">Сон и восстановление</h2>
+      <div class="grid-2">
+        <!-- Readiness chart -->
+        <div class="card">
+          <div class="card-label" style="margin-bottom: 14px;">Готовность (Readiness Score)</div>
+          <div class="bar-chart">
+            <!-- Mar5:69 Mar6:78 Mar8:47 Mar10:62 Mar12:71 Mar13:85 Mar14:78 Mar17:85 -->
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:69%; background:var(--accent); opacity:0.65;"></div></div><div class="bar-date">05</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:78%; background:var(--accent); opacity:0.75;"></div></div><div class="bar-date">06</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:47%; background:var(--red); opacity:0.8;"></div></div><div class="bar-date">08</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:62%; background:var(--accent); opacity:0.55;"></div></div><div class="bar-date">10</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:71%; background:var(--accent); opacity:0.65;"></div></div><div class="bar-date">12</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:85%; background:var(--green); opacity:0.9;"></div></div><div class="bar-date">13</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:78%; background:var(--accent); opacity:0.75;"></div></div><div class="bar-date">14</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:85%; background:var(--green); opacity:0.9;"></div></div><div class="bar-date">17</div></div>
+          </div>
+          <div class="sleep-stats">
+            <div><div class="sleep-stat-val" style="color:var(--accent);">75</div><div class="sleep-stat-lbl">среднее</div></div>
+            <div><div class="sleep-stat-val" style="color:var(--green);">85</div><div class="sleep-stat-lbl">пик</div></div>
+            <div><div class="sleep-stat-val" style="color:var(--red);">47</div><div class="sleep-stat-lbl">мин (после гонки)</div></div>
+          </div>
+        </div>
+        <!-- HRV chart -->
+        <div class="card">
+          <div class="card-label" style="margin-bottom: 14px;">HRV — rMSSD (мс)</div>
+          <div class="bar-chart">
+            <!-- Mar5:23 Mar6:23 Mar8:18 Mar10:33 Mar12:25 Mar13:26 Mar14:28 Mar17:31 -->
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:70%; background:var(--accent); opacity:0.65;"></div></div><div class="bar-date">05</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:70%; background:var(--accent); opacity:0.65;"></div></div><div class="bar-date">06</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:55%; background:var(--red); opacity:0.8;"></div></div><div class="bar-date">08</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:100%; background:var(--green); opacity:0.9;"></div></div><div class="bar-date">10</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:76%; background:var(--accent); opacity:0.65;"></div></div><div class="bar-date">12</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:79%; background:var(--accent); opacity:0.7;"></div></div><div class="bar-date">13</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:85%; background:var(--accent); opacity:0.75;"></div></div><div class="bar-date">14</div></div>
+            <div class="bar-col"><div class="bar-col-inner"><div class="bar-fill" style="height:94%; background:var(--green); opacity:0.9;"></div></div><div class="bar-date">17</div></div>
+          </div>
+          <div class="sleep-stats">
+            <div><div class="sleep-stat-val" style="color:var(--accent);">26</div><div class="sleep-stat-lbl">среднее мс</div></div>
+            <div><div class="sleep-stat-val" style="color:var(--green);">33</div><div class="sleep-stat-lbl">пик</div></div>
+            <div><div class="sleep-stat-val" style="color:var(--yellow);">18</div><div class="sleep-stat-lbl">мин (после гонки)</div></div>
+          </div>
+        </div>
+        <!-- Sleep structure -->
+        <div class="card">
+          <div style="display: flex; gap: 28px;">
+            <div><div class="card-label">Sleep Score</div><div class="card-number" style="margin-top:6px;">79</div><div class="card-sublabel">среднее</div></div>
+            <div><div class="card-label">Глубокий сон</div><div class="card-number" style="margin-top:6px;">75</div><div class="card-sublabel">мин / ночь</div></div>
+            <div><div class="card-label">REM</div><div class="card-number" style="margin-top:6px;">77</div><div class="card-sublabel">мин / ночь</div></div>
+          </div>
+        </div>
+        <!-- Vitals today -->
+        <div class="card">
+          <div style="display: flex; gap: 28px;">
+            <div><div class="card-label">Resting HR</div><div class="card-number" style="margin-top:6px;">60</div><div class="card-sublabel">уд/мин</div></div>
+            <div><div class="card-label">Body Battery</div><div class="card-number" style="margin-top:6px; color:var(--green);">61</div><div class="card-sublabel">пик сегодня</div></div>
+            <div><div class="card-label">Стресс</div><div class="card-number" style="margin-top:6px;">25</div><div class="card-sublabel">низкий</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: BLOOD MARKERS -->
+  <div class="slide" id="slide-4">
+    <div class="content-wide">
+      <div class="slide-label">Анализ крови — 12 февраля 2026 · Maccabi</div>
+      <h2 class="section-title">Ключевые биомаркеры</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%;">
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">94</div>
+          <div class="bm-name">Глюкоза нат.</div>
+          <div style="font-size:10px; color:var(--muted);">мг/дл</div>
+          <span class="badge badge-green">норма</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">5.6%</div>
+          <div class="bm-name">HbA1c</div>
+          <div style="font-size:10px; color:var(--muted);">гликированный гемоглобин</div>
+          <span class="badge badge-green">норма</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--yellow);">115</div>
+          <div class="bm-name">LDL холестерин</div>
+          <div style="font-size:10px; color:var(--muted);">мг/дл</div>
+          <span class="badge badge-yellow">следить</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">78</div>
+          <div class="bm-name">HDL холестерин</div>
+          <div style="font-size:10px; color:var(--muted);">мг/дл — протективный</div>
+          <span class="badge badge-green">отлично</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">75</div>
+          <div class="bm-name">Триглицериды</div>
+          <div style="font-size:10px; color:var(--muted);">мг/дл</div>
+          <span class="badge badge-green">норма</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">18.2</div>
+          <div class="bm-name">Lp(a)</div>
+          <div style="font-size:10px; color:var(--muted);">нмоль/л — кардиориск</div>
+          <span class="badge badge-green">низкий риск</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">&lt;0.5</div>
+          <div class="bm-name">CRP</div>
+          <div style="font-size:10px; color:var(--muted);">воспаление</div>
+          <span class="badge badge-green">очень низкое</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">53.6</div>
+          <div class="bm-name">Ферритин</div>
+          <div style="font-size:10px; color:var(--muted);">нг/мл</div>
+          <span class="badge badge-green">норма</span>
+        </div>
+        <div class="bm-cell">
+          <div class="bm-val" style="color:var(--green);">53</div>
+          <div class="bm-name">Витамин D</div>
+          <div style="font-size:10px; color:var(--muted);">нг/мл</div>
+          <span class="badge badge-green">норма</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: RED FLAGS -->
+  <div class="slide" id="slide-5" style="background: #fff8f7;">
+    <div class="content-wide">
+      <div class="slide-label">Активное расследование · анализ 12.02.2026</div>
+      <h2 class="section-title" style="color: var(--red);">Красные флаги</h2>
+      <div style="width: 100%;">
+        <div class="flag-card">
+          <div class="flag-title">Анемия — лёгкая степень</div>
+          <div class="flag-metrics">
+            <div>
+              <div class="flag-metric-val">11.9</div>
+              <div class="flag-metric-lbl">гемоглобин г/дл</div>
+              <div class="flag-metric-ref">норма: ≥12.0</div>
+            </div>
+            <div>
+              <div class="flag-metric-val">34.9%</div>
+              <div class="flag-metric-lbl">гематокрит</div>
+              <div class="flag-metric-ref">норма: ≥36%</div>
+            </div>
+            <div>
+              <div class="flag-metric-val">3.9</div>
+              <div class="flag-metric-lbl">RBC млн/мкл</div>
+              <div class="flag-metric-ref">норма: 4.0–5.2</div>
+            </div>
+            <div>
+              <div class="flag-metric-val neutral">MCV 90</div>
+              <div class="flag-metric-lbl">нормоцитарная</div>
+              <div style="font-size:10px; color:var(--secondary);">нет дефицита Fe/B12</div>
+            </div>
+          </div>
+        </div>
+        <div class="flag-card">
+          <div class="flag-title">Лейкопения + нейтропения</div>
+          <div class="flag-metrics">
+            <div>
+              <div class="flag-metric-val">3.9</div>
+              <div class="flag-metric-lbl">WBC тыс/мкл</div>
+              <div class="flag-metric-ref">норма: 4.5–11.0</div>
+            </div>
+            <div>
+              <div class="flag-metric-val">1.48</div>
+              <div class="flag-metric-lbl">нейтрофилы тыс/мкл</div>
+              <div class="flag-metric-ref">норма: 1.8–7.7</div>
+            </div>
+            <div>
+              <div class="flag-metric-val neutral">2.01</div>
+              <div class="flag-metric-lbl">лимфоциты тыс/мкл</div>
+              <div style="font-size:10px; color:var(--secondary);">компенсаторно высокие</div>
+            </div>
+          </div>
+          <div style="font-size: 11px; color: var(--secondary); padding: 9px 12px; background: rgba(192,57,43,0.07); border-radius: 5px;">
+            Этиология не установлена. Срочно: CBC + diff + B12 + ретикулоциты — март 2026
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: BONES -->
+  <div class="slide" id="slide-6">
+    <div class="content-wide">
+      <div class="slide-label">DEXA · Assuta · 19 февраля 2026</div>
+      <h2 class="section-title">Плотность костей</h2>
+      <div class="grid-2" style="align-items: start;">
+        <div>
+          <div class="card" style="margin-bottom: 16px;">
+            <div class="card-label">Позвоночник</div>
+            <div style="font-family:var(--font-heading); font-size:clamp(36px,8vw,64px); font-weight:300; color:var(--yellow); line-height:1; margin-top:8px;">−1.5</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;">T-score · BMD 1.008 г/см²</div>
+            <div class="t-bar-wrap">
+              <div class="t-bar-bg">
+                <div class="t-bar-fill" id="tbar-spine" style="width:0%;"></div>
+                <div class="t-bar-zero"></div>
+              </div>
+              <div class="t-bar-labels"><span>−3.5 (остеопороз)</span><span>0</span><span>+2.5 (норма)</span></div>
+            </div>
+            <span class="badge badge-yellow">Остеопения — стабильно</span>
+          </div>
+          <div class="card">
+            <div class="card-label">Тазобедренный сустав (оба)</div>
+            <div style="font-family:var(--font-heading); font-size:clamp(36px,8vw,64px); font-weight:300; color:var(--yellow); line-height:1; margin-top:8px;">−2.0</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;">T-score</div>
+            <div class="t-bar-wrap">
+              <div class="t-bar-bg">
+                <div class="t-bar-fill" id="tbar-hip" style="width:0%;"></div>
+                <div class="t-bar-zero"></div>
+              </div>
+              <div class="t-bar-labels"><span>−3.5 (остеопороз)</span><span>0</span><span>+2.5 (норма)</span></div>
+            </div>
+            <span class="badge badge-yellow">Остеопения — стабильно</span>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="height: 100%;">
+            <div class="card-label" style="margin-bottom:16px;">Динамика vs DEXA 2024</div>
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border);">
+                <span style="font-size:12px; color:var(--secondary);">Позвоночник T-score</span>
+                <div style="display:flex; gap:10px; align-items:center; font-family:var(--font-heading); font-size:20px;">
+                  <span style="color:var(--muted);">−1.4</span>
+                  <span style="font-size:11px; color:var(--muted); font-family:var(--font-body);">→</span>
+                  <span style="color:var(--yellow);">−1.5</span>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border);">
+                <span style="font-size:12px; color:var(--secondary);">Тазобедренный T-score</span>
+                <div style="display:flex; gap:10px; align-items:center; font-family:var(--font-heading); font-size:20px;">
+                  <span style="color:var(--muted);">−2.1</span>
+                  <span style="font-size:11px; color:var(--muted); font-family:var(--font-body);">→</span>
+                  <span style="color:var(--green);">−2.0</span>
+                </div>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--border);">
+                <span style="font-size:12px; color:var(--secondary);">Z-scores (все)</span>
+                <span style="font-size:12px; color:var(--green); font-weight:500;">Улучшились</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0;">
+                <span style="font-size:12px; color:var(--secondary);">Следующий DEXA</span>
+                <span style="font-size:12px; color:var(--accent); font-weight:500;">~2029</span>
+              </div>
+            </div>
+            <div style="margin-top:16px; padding:12px 14px; background:var(--green-light); border-radius:6px;">
+              <div style="font-size:11px; color:var(--green); font-weight:600;">Протокол защиты костей</div>
+              <div style="font-size:11px; color:var(--secondary); margin-top:4px; line-height:1.5;">Eviana · D3 + K2 · Крeatин · Пилатес 2×/нед · Impact jumps в разминке</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: ACTIVITY -->
+  <div class="slide" id="slide-7">
+    <div class="content-wide">
+      <div class="slide-label">Март 2026 · Garmin</div>
+      <h2 class="section-title">Активность</h2>
+      <div class="grid-2" style="align-items: start;">
+        <div>
+          <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:10px;">Pontresina — лыжные гонки (6–9 марта)</div>
+          <div class="act-row">
+            <div class="act-type">06 марта</div>
+            <div class="act-stats">
+              <div class="act-stat"><div class="act-val">8.3</div><div class="act-lbl">км</div></div>
+              <div class="act-stat"><div class="act-val">68</div><div class="act-lbl">мин</div></div>
+              <div class="act-stat"><div class="act-val">437</div><div class="act-lbl">ккал</div></div>
+              <div class="act-stat"><div class="act-val">136/163</div><div class="act-lbl">avg/max HR</div></div>
+            </div>
+          </div>
+          <div class="act-row">
+            <div class="act-type">07 марта</div>
+            <div class="act-stats">
+              <div class="act-stat"><div class="act-val">22.6</div><div class="act-lbl">км</div></div>
+              <div class="act-stat"><div class="act-val">199</div><div class="act-lbl">мин</div></div>
+              <div class="act-stat"><div class="act-val">1163</div><div class="act-lbl">ккал</div></div>
+              <div class="act-stat"><div class="act-val" style="color:var(--red);">140/169</div><div class="act-lbl">avg/max HR</div></div>
+            </div>
+          </div>
+          <div class="act-row">
+            <div class="act-type">09 марта</div>
+            <div class="act-stats">
+              <div class="act-stat"><div class="act-val">16.4</div><div class="act-lbl">км</div></div>
+              <div class="act-stat"><div class="act-val">121</div><div class="act-lbl">мин</div></div>
+              <div class="act-stat"><div class="act-val">638</div><div class="act-lbl">ккал</div></div>
+              <div class="act-stat"><div class="act-val">128/159</div><div class="act-lbl">avg/max HR</div></div>
+            </div>
+          </div>
+          <div style="display:flex; gap:20px; padding:14px 18px; background:white; border:1px solid var(--border); border-radius:8px; margin-top:10px;">
+            <div class="act-stat"><div class="act-val" style="font-size:26px;">47.3</div><div class="act-lbl">км за 3 дня</div></div>
+            <div class="act-stat"><div class="act-val" style="font-size:26px;">2238</div><div class="act-lbl">ккал</div></div>
+            <div class="act-stat"><div class="act-val" style="font-size:26px; color:var(--red);">169</div><div class="act-lbl">max HR</div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:10px;">Регулярные тренировки</div>
+          <div class="act-row">
+            <div class="act-type">Пилатес</div>
+            <div class="act-stats">
+              <div class="act-stat"><div class="act-val">2×</div><div class="act-lbl">в неделю</div></div>
+              <div class="act-stat"><div class="act-val">59</div><div class="act-lbl">мин</div></div>
+              <div class="act-stat"><div class="act-val">98</div><div class="act-lbl">avg HR</div></div>
+            </div>
+          </div>
+          <div class="act-row">
+            <div class="act-type">Падел</div>
+            <div class="act-stats">
+              <div class="act-stat"><div class="act-val">2×</div><div class="act-lbl">фев</div></div>
+              <div class="act-stat"><div class="act-val">85</div><div class="act-lbl">мин ср.</div></div>
+              <div class="act-stat"><div class="act-val">125</div><div class="act-lbl">avg HR</div></div>
+            </div>
+          </div>
+          <div class="act-row">
+            <div class="act-type">Силовые</div>
+            <div class="act-stats">
+              <div class="act-stat"><div class="act-val">2×</div><div class="act-lbl">фев</div></div>
+              <div class="act-stat"><div class="act-val">60</div><div class="act-lbl">мин</div></div>
+              <div class="act-stat"><div class="act-val">94</div><div class="act-lbl">avg HR</div></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:14px;">
+            <div class="card-label">VO2max · Garmin · ноябрь 2025</div>
+            <div style="font-family:var(--font-heading); font-size:clamp(36px,8vw,64px); font-weight:300; color:var(--green); line-height:1; margin-top:8px;">45</div>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;">мл/кг/мин — топ 10% для возраста и пола</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: NEXT STEPS -->
+  <div class="slide" id="slide-8">
+    <div class="content-wide">
+      <div class="slide-label">Мониторинг</div>
+      <h2 class="section-title">Что дальше</h2>
+      <div class="grid-2" style="align-items: start;">
+        <div>
+          <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:14px;">Срочно — март 2026</div>
+          <div class="next-item">
+            <div class="next-dot dot-red"></div>
+            <div><div class="next-h">CBC + дифференциал</div><div class="next-p">Повторная картина крови — анемия + лейкопения</div></div>
+          </div>
+          <div class="next-item">
+            <div class="next-dot dot-red"></div>
+            <div><div class="next-h">Витамин B12</div><div class="next-p">Подтвердить уровень — возможная причина анемии</div></div>
+          </div>
+          <div class="next-item">
+            <div class="next-dot dot-red"></div>
+            <div><div class="next-h">Ретикулоциты</div><div class="next-p">Оценить активность кроветворения</div></div>
+          </div>
+          <div class="next-item">
+            <div class="next-dot dot-red"></div>
+            <div><div class="next-h">CRP</div><div class="next-p">Исключить воспалительный процесс</div></div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--yellow); margin-bottom:14px;">Апрель — май 2026</div>
+          <div class="next-item">
+            <div class="next-dot dot-yellow"></div>
+            <div><div class="next-h">ApoB + hs-CRP</div><div class="next-p">Кардиориск — LDL 115 требует динамики</div></div>
+          </div>
+          <div class="next-item">
+            <div class="next-dot dot-yellow"></div>
+            <div><div class="next-h">Инсулин натощак</div><div class="next-p">Полная метаболическая картина</div></div>
+          </div>
+          <div class="next-item">
+            <div class="next-dot dot-yellow"></div>
+            <div><div class="next-h">Ферритин · железо · D · eGFR</div><div class="next-p">Регулярный мониторинговый блок</div></div>
+          </div>
+          <div class="next-item">
+            <div class="next-dot dot-yellow"></div>
+            <div><div class="next-h">Кортизол (утренний забор)</div><div class="next-p">Первый правильно оформленный тест</div></div>
+          </div>
+          <div class="next-item">
+            <div class="next-dot dot-gray"></div>
+            <div><div class="next-h">DEXA — следующий ~2029</div><div class="next-p">По рекомендации врача, если нет симптомов</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: SUPPLEMENTS -->
+  <div class="slide" id="slide-9">
+    <div class="content-wide">
+      <div class="slide-label">Текущий стек · март 2026</div>
+      <h2 class="section-title">Добавки</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%;">
+
+        <!-- Morning -->
+        <div class="card">
+          <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">Утро · натощак</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+              <span style="font-size:13px; color:var(--text);">NAC</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">600 мг</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+              <span style="font-size:13px; color:var(--text);">Omega-3 EPA/DHA</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">1000 мг</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+              <span style="font-size:13px; color:var(--text);">Vitamin D3</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">2000 МЕ</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-size:13px; color:var(--text);">Vitamin K2 (MK-7)</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">100 мкг</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- With food -->
+        <div class="card">
+          <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">С едой · днём</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+              <span style="font-size:13px; color:var(--text);">Omega-3 EPA/DHA</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">1000 мг</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+              <span style="font-size:13px; color:var(--text);">Creatin monohydrate</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">3–5 г</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+              <span style="font-size:13px; color:var(--text);">Коллаген + HA + Vit C</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">1 ложка</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <span style="font-size:13px; color:var(--text);">Vitamin B12 (methylcob.)</span>
+              <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">500–1000 мкг <span style="font-size:11px; color:var(--muted);">3–4×/нед</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evening + Upcoming -->
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div class="card">
+            <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:14px;">Вечер</div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+                <span style="font-size:13px; color:var(--text);">Glycine</span>
+                <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">2000 мг</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom:8px; border-bottom:1px solid var(--border);">
+                <span style="font-size:13px; color:var(--text);">Magnesium glycinate</span>
+                <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">200–300 мг</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span style="font-size:13px; color:var(--text);">Eviana (HRT)</span>
+                <span style="font-family:var(--font-heading); font-size:18px; color:var(--accent);">0.5 мг</span>
+              </div>
+            </div>
+          </div>
+          <div class="card" style="background: var(--yellow-light); border-color: #e8d070;">
+            <div style="font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--yellow); margin-bottom:12px;">Добавить · активный план</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span style="font-size:12px; color:var(--secondary);">Zinc</span>
+                <span style="font-size:12px; color:var(--secondary);">10–15 мг / 6 недель</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span style="font-size:12px; color:var(--secondary);">Astaxanthin</span>
+                <span style="font-size:12px; color:var(--secondary);">4–6 мг / 8 недель (кожа)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 10: EVENING DATA -->
+  <div class="slide" id="slide-10">
+    <div class="content-wide">
+      <div class="slide-label">Ночной профиль · израильское время (UTC+2)</div>
+      <h2 class="section-title">Вечерние данные</h2>
+      <div class="grid-2" style="align-items:start;">
+
+        <!-- Bedtime chart -->
+        <div class="card">
+          <div class="card-label" style="margin-bottom:14px;">Отход ко сну</div>
+          <!-- Dates: Mar3 Mar4 Mar5 Mar6 Mar8 Mar10 Mar12 Mar13 Mar14 Mar17 -->
+          <!-- Bedtimes Israel: 22:12 00:25 23:07 22:01 21:49 00:54 01:07 01:20 00:47 01:53 -->
+          <!-- Normalise to 18:00–03:00 window (9h). 0%=18:00, 100%=03:00 -->
+          <!-- 22:12 = 4h12m from 18:00 = 252min/540 = 47% -->
+          <!-- 00:25 = 6h25m = 385/540 = 71% -->
+          <!-- 23:07 = 5h07m = 307/540 = 57% -->
+          <!-- 22:01 = 4h01m = 241/540 = 45% -->
+          <!-- 21:49 = 3h49m = 229/540 = 42% (ski) -->
+          <!-- 00:54 = 6h54m = 414/540 = 77% -->
+          <!-- 01:07 = 7h07m = 427/540 = 79% -->
+          <!-- 01:20 = 7h20m = 440/540 = 81% -->
+          <!-- 00:47 = 6h47m = 407/540 = 75% -->
+          <!-- 01:53 = 7h53m = 473/540 = 88% -->
+          <div style="position:relative; margin-bottom:8px;">
+            <div style="display:flex; align-items:flex-end; gap:5px; height:88px;">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:47%;background:var(--green);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">03</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:71%;background:var(--red);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">04</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:57%;background:var(--accent);opacity:0.7;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">05</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:45%;background:var(--green);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">06</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:42%;background:var(--green);opacity:0.85;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">08</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:77%;background:var(--red);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">10</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:79%;background:var(--red);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">12</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:81%;background:var(--red);opacity:0.8;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">13</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:75%;background:var(--red);opacity:0.7;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">14</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:88%;background:var(--red);opacity:0.85;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">17</div></div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:9px; color:var(--muted); margin-bottom:12px; padding:0 2px;">
+            <span>18:00</span><span>↑ позже — хуже</span><span>03:00</span>
+          </div>
+          <div style="display:flex; gap:12px; margin-top:4px;">
+            <div style="display:flex; align-items:center; gap:5px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--green);"></div><span style="font-size:10px;color:var(--muted);">лыжный трип</span></div>
+            <div style="display:flex; align-items:center; gap:5px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--red);"></div><span style="font-size:10px;color:var(--muted);">дома — после полуночи</span></div>
+          </div>
+        </div>
+
+        <!-- Sleep structure -->
+        <div class="card">
+          <div class="card-label" style="margin-bottom:14px;">Структура сна</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                <span style="font-size:11px; color:var(--secondary);">Глубокий</span>
+                <span style="font-family:var(--font-heading); font-size:16px; color:var(--accent);">75 мин <span style="font-size:11px;color:var(--muted);">ср.</span></span>
+              </div>
+              <div style="height:6px; background:var(--border); border-radius:3px;"><div style="width:75%; height:100%; background:var(--accent); border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                <span style="font-size:11px; color:var(--secondary);">REM</span>
+                <span style="font-family:var(--font-heading); font-size:16px; color:var(--accent);">77 мин <span style="font-size:11px;color:var(--muted);">ср.</span></span>
+              </div>
+              <div style="height:6px; background:var(--border); border-radius:3px;"><div style="width:77%; height:100%; background:#7b9fc4; border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                <span style="font-size:11px; color:var(--secondary);">Лёгкий</span>
+                <span style="font-family:var(--font-heading); font-size:16px; color:var(--muted);">279 мин <span style="font-size:11px;color:var(--muted);">ср.</span></span>
+              </div>
+              <div style="height:6px; background:var(--border); border-radius:3px;"><div style="width:62%; height:100%; background:#c8d8e8; border-radius:3px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                <span style="font-size:11px; color:var(--secondary);">Пробуждения</span>
+                <span style="font-family:var(--font-heading); font-size:16px; color:var(--yellow);">79 мин <span style="font-size:11px;color:var(--muted);">ср.</span></span>
+              </div>
+              <div style="height:6px; background:var(--border); border-radius:3px;"><div style="width:20%; height:100%; background:var(--yellow); border-radius:3px;"></div></div>
+            </div>
+          </div>
+          <div style="display:flex; gap:20px; margin-top:18px; padding-top:14px; border-top:1px solid var(--border);">
+            <div><div style="font-family:var(--font-heading);font-size:28px;color:var(--accent);">86%</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">эфф. лучш. ночь</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:28px;color:var(--yellow);">76%</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">эфф. худш. ночь</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:28px;color:var(--accent);">7.1</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">часов ср. сон</div></div>
+          </div>
+        </div>
+
+        <!-- Body battery end-of-day -->
+        <div class="card">
+          <div class="card-label" style="margin-bottom:14px;">Body Battery — конец дня (минимум)</div>
+          <div style="display:flex; align-items:flex-end; gap:5px; height:64px;">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:19%;background:var(--red);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">03</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:16%;background:var(--red);opacity:0.8;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">04</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:35%;background:var(--yellow);opacity:0.8;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">05</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:24%;background:var(--red);opacity:0.7;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">06</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:40%;background:var(--yellow);opacity:0.8;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">08</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:27%;background:var(--red);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">10</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:37%;background:var(--yellow);opacity:0.8;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">12</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:19%;background:var(--red);opacity:0.75;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">13</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:36%;background:var(--yellow);opacity:0.8;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">14</div></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;"><div style="flex:1;width:100%;display:flex;align-items:flex-end;"><div style="width:100%;height:32%;background:var(--yellow);opacity:0.8;border-radius:2px 2px 0 0;"></div></div><div style="font-size:9px;color:var(--muted);">17</div></div>
+          </div>
+          <div style="display:flex; gap:20px; margin-top:12px;">
+            <div><div style="font-family:var(--font-heading);font-size:26px;color:var(--red);">15</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">минимум</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:26px;color:var(--accent);">27</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">среднее</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:26px;color:var(--yellow);">40</div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">максимум</div></div>
+          </div>
+        </div>
+
+        <!-- Pattern insight -->
+        <div class="card" style="background:#f7f9fc;">
+          <div class="card-label" style="margin-bottom:14px;">Паттерн</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div style="padding:10px 12px; background:var(--red-light); border-radius:6px; border-left:3px solid var(--red);">
+              <div style="font-size:11px; font-weight:600; color:var(--red);">Дома — сон после полуночи</div>
+              <div style="font-size:11px; color:var(--secondary); margin-top:3px;">00:47–01:53 · readiness ниже</div>
+            </div>
+            <div style="padding:10px 12px; background:var(--green-light); border-radius:6px; border-left:3px solid var(--green);">
+              <div style="font-size:11px; font-weight:600; color:var(--green);">Горы — сон в 22:00–22:10</div>
+              <div style="font-size:11px; color:var(--secondary); margin-top:3px;">Ski trip: readiness 85–88</div>
+            </div>
+            <div style="padding:10px 12px; background:var(--yellow-light); border-radius:6px; border-left:3px solid var(--yellow);">
+              <div style="font-size:11px; font-weight:600; color:var(--yellow);">79 мин — ср. время пробуждений</div>
+              <div style="font-size:11px; color:var(--secondary); margin-top:3px;">Mar 12: 111 мин awake — пик</div>
+            </div>
+            <div style="padding:10px 12px; background:white; border-radius:6px; border:1px solid var(--border);">
+              <div style="font-size:11px; font-weight:500; color:var(--accent);">Гипотеза: раньше лечь → лучше восстановление</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:3px;">Цель: 23:00 → проверить через 2 недели</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 11: SUBJECTIVE DATA -->
+  <div class="slide" id="slide-11">
+    <div class="content-wide">
+      <div class="slide-label">Вечерние чекины · Telegram бот · 18 записей · фев–март 2026</div>
+      <h2 class="section-title">Настроение и энергия</h2>
+      <div class="grid-2" style="align-items:start;">
+
+        <!-- Chart -->
+        <div class="card">
+          <div class="card-label" style="margin-bottom:16px;">Динамика · 8 февраля — 17 марта</div>
+          <svg width="100%" height="130" viewBox="0 0 520 130" preserveAspectRatio="xMidYMid meet" style="overflow:visible;">
+            <!-- Period backgrounds -->
+            <rect x="116" y="0" width="147" height="110" fill="#fde8e6" opacity="0.6" rx="2"/>
+            <rect x="289" y="0" width="116" height="110" fill="#d8f3dc" opacity="0.6" rx="2"/>
+            <!-- Grid lines -->
+            <line x1="30" y1="10" x2="520" y2="10" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="35" x2="520" y2="35" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="60" x2="520" y2="60" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="85" x2="520" y2="85" stroke="#e0e0e0" stroke-width="0.5"/>
+            <line x1="30" y1="110" x2="520" y2="110" stroke="#e0e0e0" stroke-width="0.5"/>
+            <!-- Y labels -->
+            <text x="24" y="13" font-size="8" fill="#aaa" text-anchor="end" font-family="Inter,sans-serif">10</text>
+            <text x="24" y="63" font-size="8" fill="#aaa" text-anchor="end" font-family="Inter,sans-serif">5</text>
+            <text x="24" y="113" font-size="8" fill="#aaa" text-anchor="end" font-family="Inter,sans-serif">0</text>
+            <!-- Filled area under mood -->
+            <polygon points="30,30 58.8,20 87.6,40 116.4,90 145.2,90 174,50 202.8,90 231.6,80 260.4,80 289.2,40 318,60 346.8,40 375.6,40 404.4,60 433.2,40 462,40 490.8,40 519.6,80 519.6,110 30,110" fill="#2c3e50" opacity="0.05"/>
+            <!-- Energy line -->
+            <polyline points="30,30 58.8,20 87.6,60 116.4,80 145.2,80 174,60 202.8,80 231.6,80 260.4,80 289.2,40 318,60 346.8,40 375.6,40 404.4,60 433.2,40 462,40 490.8,40 519.6,80" fill="none" stroke="#2d6a4f" stroke-width="2" stroke-linejoin="round" opacity="0.65"/>
+            <!-- Mood line -->
+            <polyline points="30,30 58.8,20 87.6,40 116.4,90 145.2,90 174,50 202.8,90 231.6,80 260.4,80 289.2,40 318,60 346.8,40 375.6,40 404.4,60 433.2,40 462,40 490.8,40 519.6,80" fill="none" stroke="#2c3e50" stroke-width="2.5" stroke-linejoin="round"/>
+            <!-- Peak dots -->
+            <circle cx="30" cy="30" r="3.5" fill="#2c3e50"/>
+            <circle cx="58.8" cy="20" r="4" fill="#2d6a4f"/>
+            <!-- Today dot red -->
+            <circle cx="519.6" cy="80" r="4.5" fill="#c0392b"/>
+            <!-- X axis labels -->
+            <text x="30" y="126" font-size="8" fill="#aaa" text-anchor="middle" font-family="Inter,sans-serif">8фев</text>
+            <text x="87.6" y="126" font-size="8" fill="#aaa" text-anchor="middle" font-family="Inter,sans-serif">15фев</text>
+            <text x="130" y="126" font-size="8" fill="#c0392b" text-anchor="middle" font-family="Inter,sans-serif">болезнь</text>
+            <text x="346" y="126" font-size="8" fill="#2d6a4f" text-anchor="middle" font-family="Inter,sans-serif">лыжи</text>
+            <text x="519.6" y="126" font-size="8" fill="#c0392b" text-anchor="middle" font-family="Inter,sans-serif">17мар</text>
+          </svg>
+          <div style="display:flex;gap:16px;margin-top:10px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:18px;height:2.5px;background:var(--accent);border-radius:2px;"></div><span style="font-size:10px;color:var(--muted);">настроение</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:18px;height:2px;background:var(--green);border-radius:2px;opacity:0.7;"></div><span style="font-size:10px;color:var(--muted);">энергия</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;background:var(--red-light);border-radius:2px;"></div><span style="font-size:10px;color:var(--muted);">болезнь</span></div>
+            <div style="display:flex;align-items:center;gap:5px;"><div style="width:10px;height:10px;background:var(--green-light);border-radius:2px;"></div><span style="font-size:10px;color:var(--muted);">лыжи</span></div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <!-- Stats -->
+          <div class="card">
+            <div style="display:flex;gap:24px;flex-wrap:wrap;">
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--accent);line-height:1;">5.2</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">ср. настроение</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--green);line-height:1;">9</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">пик · 8–9 фев</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--red);line-height:1;">3</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">сегодня</div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading);font-size:clamp(28px,5vw,44px);color:var(--muted);line-height:1;">18</div>
+                <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:4px;">дней записей</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key periods -->
+          <div class="card">
+            <div class="card-label" style="margin-bottom:12px;">Ключевые периоды</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="padding:9px 12px;border-radius:6px;background:var(--green-light);border-left:3px solid var(--green);">
+                <div style="font-size:11px;font-weight:600;color:var(--green);">8–9 февраля — пик</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">Настроение 9/10 · энергия 9/10 · мотивация 8</div>
+              </div>
+              <div style="padding:9px 12px;border-radius:6px;background:var(--red-light);border-left:3px solid var(--red);">
+                <div style="font-size:11px;font-weight:600;color:var(--red);">24 фев – 1 марта — болезнь</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">Настроение 2–3 · стресс 7–8 · «болезнь и война»</div>
+              </div>
+              <div style="padding:9px 12px;border-radius:6px;background:var(--green-light);border-left:3px solid var(--green);">
+                <div style="font-size:11px;font-weight:600;color:var(--green);">6–10 марта — лыжи Pontresina</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">Стабильные 7/10 каждый день · стресс 3</div>
+              </div>
+              <div style="padding:9px 12px;border-radius:6px;background:var(--red-light);border-left:3px solid var(--red);">
+                <div style="font-size:11px;font-weight:600;color:var(--red);">17 марта — новый спад</div>
+                <div style="font-size:11px;color:var(--secondary);margin-top:2px;">«Плохо себя чувствую» · 3/10</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insight -->
+          <div class="card" style="background:#f7f9fc;">
+            <div class="card-label" style="margin-bottom:10px;">Паттерн</div>
+            <div style="font-size:12px;color:var(--secondary);line-height:1.7;">
+              Настроение и энергия движутся синхронно.<br>
+              Движение на природе → +4 пункта к базе.<br>
+              Болезнь — главный дестабилизатор.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div><!-- /presentation -->
+
+<!-- Navigation -->
+<div class="nav-dots" id="navDots"></div>
+<div class="slide-counter" id="slideCounter">1 / 11</div>
+<div class="progress-bar" id="progressBar"></div>
+
+<script>
+const TOTAL = 11;
+let cur = 1, busy = false;
+
+// Build dots
+const dotsEl = document.getElementById('navDots');
+for (let i = 1; i <= TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'nav-dot' + (i === 1 ? ' active' : '');
+  d.addEventListener('click', () => go(i));
+  dotsEl.appendChild(d);
+}
+
+function go(n) {
+  if (busy || n === cur || n < 1 || n > TOTAL) return;
+  busy = true;
+  const dir = n > cur ? 1 : -1;
+  const prev = document.getElementById('slide-' + cur);
+  const next = document.getElementById('slide-' + n);
+
+  prev.classList.remove('active');
+  prev.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+  prev.style.opacity = '0';
+  prev.style.transform = `translateY(${-dir * 24}px)`;
+
+  next.style.transition = 'none';
+  next.style.opacity = '0';
+  next.style.transform = `translateY(${dir * 24}px)`;
+  next.classList.add('active');
+
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    next.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    next.style.opacity = '1';
+    next.style.transform = 'translateY(0)';
+  }));
+
+  cur = n;
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i + 1 === cur));
+  document.getElementById('slideCounter').textContent = cur + ' / ' + TOTAL;
+  document.getElementById('progressBar').style.width = (cur / TOTAL * 100) + '%';
+
+  setTimeout(() => { onSlideEnter(cur); busy = false; }, 350);
+}
+
+function onSlideEnter(n) {
+  if (n === 1) {
+    document.querySelectorAll('#slide-1 .counter').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const dec = parseInt(el.dataset.dec || 0);
+      const t0 = performance.now();
+      const dur = 1300;
+      function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = (e * target).toFixed(dec);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  if (n === 6) {
+    // Animate T-score bars
+    // Scale: -3.5 to 0 = 50% of bar (right half)
+    // T-score -1.5 → width = (1.5/3.5)*50 = 21.4%
+    // T-score -2.0 → width = (2.0/3.5)*50 = 28.6%
+    setTimeout(() => {
+      document.getElementById('tbar-spine').style.width = '21.4%';
+      document.getElementById('tbar-hip').style.width = '28.6%';
+    }, 100);
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(cur - 1); }
+});
+
+let tx = 0, ty = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  const dy = e.changedTouches[0].clientY - ty;
+  if (Math.abs(dx) > Math.abs(dy)) { if (dx < -50) go(cur + 1); else if (dx > 50) go(cur - 1); }
+  else { if (dy < -50) go(cur + 1); else if (dy > 50) go(cur - 1); }
+});
+
+// Init
+document.getElementById('progressBar').style.width = (1 / TOTAL * 100) + '%';
+onSlideEnter(1);
+</script>
+</body>
+</html>
