@@ -413,6 +413,64 @@ body { font-family: var(--fb); color: var(--text); }
 }
 .bdesc { font-size: 0.76rem; color: var(--muted); line-height: 1.65; }
 
+/* ==== SLIDE 13: БИОВОЗРАСТ — ИНСТРУМЕНТЫ ==== */
+.s_bio { width: 100%; max-width: 1020px; }
+.bagrid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-top: 24px; width: 100%;
+}
+.bacard {
+  border: 1px solid var(--border); padding: 22px 24px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.25s;
+  cursor: default;
+}
+.bacard.rv { opacity: 1; transform: translateY(0); }
+.bacard:hover { border-color: var(--accent); }
+.ba-tag { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.ba-name { font-family: var(--fh); font-size: 1.5rem; font-weight: 300; color: var(--accent); margin-bottom: 8px; line-height: 1.15; }
+.ba-q { font-size: 0.78rem; font-style: italic; color: var(--secondary); margin-bottom: 10px; line-height: 1.5; }
+.ba-meta { display: flex; gap: 16px; font-size: 0.7rem; color: var(--muted); }
+.ba-meta span::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--border); margin-right: 6px; vertical-align: middle; }
+.ba-analogy {
+  margin-top: 14px; padding: 14px 20px;
+  border: 1px solid var(--border); background: #f7f5f2;
+  display: flex; gap: 28px; flex-wrap: wrap; align-items: center;
+  opacity: 0; transition: opacity 0.5s ease 0.55s;
+}
+.ba-analogy.rv { opacity: 1; }
+.ba-analogy-item { font-size: 0.74rem; color: var(--secondary); line-height: 1.5; }
+.ba-analogy-item strong { color: var(--text); }
+.ba-analogy-sep { color: var(--border); font-size: 1.2rem; }
+
+/* ==== SLIDE 14: КАК НАЧАТЬ ==== */
+.s_start { width: 100%; max-width: 760px; }
+.steps { list-style: none; margin-top: 28px; width: 100%; }
+.step {
+  display: flex; gap: 28px; padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0; transform: translateX(-14px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.step:last-child { border-bottom: none; }
+.step.rv { opacity: 1; transform: translateX(0); }
+.step-num {
+  font-family: var(--fh); font-size: 3rem; font-weight: 300;
+  color: var(--border); line-height: 1; min-width: 40px;
+}
+.step-badge {
+  display: inline-block; font-size: 0.6rem; letter-spacing: 0.18em;
+  text-transform: uppercase; padding: 3px 10px;
+  margin-bottom: 8px;
+}
+.free  .step-badge { background: #e6f0d8; color: #3d6010; }
+.once  .step-badge { background: #e8eef5; color: #2c3e50; }
+.annual .step-badge { background: #f0eae0; color: #7a5a2a; }
+.step-title { font-size: 0.9rem; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+.step-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+.step-where { font-size: 0.72rem; color: var(--secondary); margin-top: 8px; }
+.step-where strong { color: var(--text); }
+
 /* ==== SLIDE 15: CLOSING ==== */
 .s15 { text-align: center; }
 .cq {
@@ -763,8 +821,88 @@ body { font-family: var(--fb); color: var(--text); }
   </div>
 </div>
 
-<!-- SLIDE 14: ПОЧЕМУ НЕ ДЕЛАЕМ -->
-<div class="slide s14" data-i="13">
+<!-- SLIDE 13: БИОЛОГИЧЕСКИЙ ВОЗРАСТ — ИНСТРУМЕНТЫ -->
+<div class="slide s_bio" data-i="13">
+  <div style="width:100%">
+    <div class="label">Биологический возраст</div>
+    <div class="stitle" style="margin-bottom:4px;">4 вопроса — 4 инструмента</div>
+    <div style="font-size:0.78rem;color:var(--muted);margin-bottom:18px;">Один тест — мало информации. Ценность — в динамике.</div>
+    <div class="bagrid">
+      <div class="bacard" id="ba0">
+        <div class="ba-tag">ДНК · один раз в жизни</div>
+        <div class="ba-name">Генетический тест</div>
+        <div class="ba-q">«С чем я родилась?»</div>
+        <div class="ba-meta"><span>Не меняется</span><span>£100–200, один раз</span></div>
+      </div>
+      <div class="bacard" id="ba1">
+        <div class="ba-tag">Анализ крови · бесплатно</div>
+        <div class="ba-name">PhenoAge</div>
+        <div class="ba-q">«Как выглядит биология по анализам крови?»</div>
+        <div class="ba-meta"><span>Меняется от образа жизни</span><span>Бесплатно</span></div>
+      </div>
+      <div class="bacard" id="ba2">
+        <div class="ba-tag">Эпигенетика · раз в год</div>
+        <div class="ba-name">GrimAge</div>
+        <div class="ba-q">«На сколько лет моя эпигенетика?»</div>
+        <div class="ba-meta"><span>Меняется, медленно</span><span>£300–400</span></div>
+      </div>
+      <div class="bacard" id="ba3">
+        <div class="ba-tag">Темп старения · раз в 6 мес</div>
+        <div class="ba-name">DunedinPACE</div>
+        <div class="ba-q">«С какой скоростью я старею прямо сейчас?»</div>
+        <div class="ba-meta"><span>Самый чувствительный</span><span>Входит в TruDiagnostic</span></div>
+      </div>
+    </div>
+    <div class="ba-analogy" id="baa">
+      <div class="ba-analogy-item"><strong>Генетика</strong><br>Характеристики машины с завода</div>
+      <div class="ba-analogy-sep">·</div>
+      <div class="ba-analogy-item"><strong>PhenoAge</strong><br>Техосмотр по параметрам</div>
+      <div class="ba-analogy-sep">·</div>
+      <div class="ba-analogy-item"><strong>GrimAge</strong><br>Показание одометра</div>
+      <div class="ba-analogy-sep">·</div>
+      <div class="ba-analogy-item"><strong>DunedinPACE</strong><br>Скорость на спидометре сейчас</div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 14: КАК НАЧАТЬ ИЗМЕРЯТЬ -->
+<div class="slide s_start" data-i="14">
+  <div style="width:100%">
+    <div class="label">Практически</div>
+    <div class="stitle">Как начать измерять</div>
+    <ul class="steps">
+      <li class="step free" id="st0">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-badge">Прямо сейчас · бесплатно</div>
+          <div class="step-title">Сдать развёрнутый анализ крови → PhenoAge</div>
+          <div class="step-desc">Вбить цифры из анализов в онлайн-калькулятор — получить первое число. Альбумин, креатинин, глюкоза, вч-СРБ, лимфоциты и ещё 4 маркера.</div>
+        </div>
+      </li>
+      <li class="step once" id="st1">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-badge">Один раз в жизни</div>
+          <div class="step-title">Генетический тест — знать свои предрасположенности</div>
+          <div class="step-desc">APOE4, BRCA, Лп(а), метаболизм витамина D и омега-3. Результат не изменится никогда.</div>
+          <div class="step-where"><strong>UK:</strong> 23andMe · Chronomics &nbsp;|&nbsp; <strong>RU:</strong> Genotek</div>
+        </div>
+      </li>
+      <li class="step annual" id="st2">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-badge">Раз в год</div>
+          <div class="step-title">TruDiagnostic — GrimAge + DunedinPACE одним анализом</div>
+          <div class="step-desc">Один укол — оба показателя. Видишь динамику год к году: какие интервенции работают именно у тебя.</div>
+          <div class="step-where"><strong>UK логистика:</strong> Chronomics (британский аналог, проще доставка)</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- SLIDE 15: ПОЧЕМУ НЕ ДЕЛАЕМ -->
+<div class="slide s14" data-i="15">
   <div style="width:100%">
     <div class="label">Почему знаем, но не делаем</div>
     <div class="stitle" style="margin-bottom:6px;">Мозг не ленивый — мозг экономный.</div>
@@ -778,8 +916,8 @@ body { font-family: var(--fb); color: var(--text); }
   </div>
 </div>
 
-<!-- SLIDE 15: CLOSING -->
-<div class="slide s15" data-i="14">
+<!-- SLIDE 16: CLOSING -->
+<div class="slide s15" data-i="16">
   <div class="cq" id="cq">«Я буду ложиться раньше» не работает.<br>«В 22:00 телефон уходит в другую комнату» — работает.</div>
   <div class="ce" id="ce">Решение принято один раз.</div>
   <div class="cl" id="cl">Longevity OS</div>
@@ -793,7 +931,7 @@ body { font-family: var(--fb); color: var(--text); }
 <div class="hint">← → пролистать</div>
 
 <script>
-const TOTAL = 15;
+const TOTAL = 17;
 let cur = 0, busy = false;
 
 // build dots
@@ -917,11 +1055,22 @@ function triggerAnim(idx) {
       break;
 
     case 13:
+      ['ba0','ba1','ba2','ba3'].forEach((id, i) =>
+        after(() => document.getElementById(id).classList.add('rv'), i * 120));
+      after(() => document.getElementById('baa').classList.add('rv'), 600);
+      break;
+
+    case 14:
+      ['st0','st1','st2'].forEach((id, i) =>
+        after(() => document.getElementById(id).classList.add('rv'), i * 160));
+      break;
+
+    case 15:
       document.querySelectorAll('.btool').forEach((el, i) =>
         after(() => el.classList.add('rv'), i * 120));
       break;
 
-    case 14:
+    case 16:
       after(() => document.getElementById('cq').classList.add('rv'), 100);
       after(() => document.getElementById('ce').classList.add('rv'), 450);
       after(() => document.getElementById('cl').classList.add('rv'), 750);
